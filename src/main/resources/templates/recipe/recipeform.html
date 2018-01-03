@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <title>Recipe Form</title>
@@ -51,7 +51,7 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
+                                    <div class="radio" th:remove="all">
                                         <label>
                                             <input type="checkbox" value=""/>
                                             Cat 1
@@ -61,6 +61,11 @@
                                         <label>
                                             <input type="checkbox" value=""/>
                                             Cat 2
+                                        </label>
+                                    </div>
+                                    <div th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">
+                                        <label>
+                                         <input type="checkbox" value="${category.getId}"/>
                                         </label>
                                     </div>
                                 </div>
@@ -155,14 +160,14 @@
                                         ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
                                         </li>
                                     </ul>
-                                    <div th:each="ingredientEach, idx : ${recipe.ingredients}">
-                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].id}" />
-                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].description}" />
-                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].amount}" />
-                                        <input type="hidden" th:field="*{ingredients[__${idx.index}__].uom.id}" />
+                                    <div th:each="ingredientEach, idx : ${recipe.ingredients}" >
+                                        <input  type="hidden" th:field="*{ingredients[__${idx.index}__].id}" />
+                                        <input  type="hidden" th:field="*{ingredients[__${idx.index}__].description}" />
+                                        <input  type="hidden" th:field="*{ingredients[__${idx.index}__].amount}" />
+                                        <input  type="hidden" th:field="*{ingredients[__${idx.index}__].uom.id}" />
                                     </div>
-                                    <div th:each="catEach, idx : ${recipe.categories}">
-                                        <input type="hidden" th:field="*{categories[__${idx.index}__].id}" />
+                                    <div th:each="catEach, idx : ${recipe.categories}" >
+                                        <input  type="hidden" th:field="*{categories[__${idx.index}__].id}" />
                                     </div>
                                 </div>
                             </div>
